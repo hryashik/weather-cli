@@ -1,15 +1,15 @@
-import {getArgs} from "./helpers/args";
-import {config} from 'dotenv'
-import {printError} from "./services/log.service";
+import { config } from 'dotenv'
+import { printError, printHelp } from "./services/log.service";
+import { getArgs } from "./helpers/args";
 
 config()
 
 function initCli() {
    const args = getArgs(process.argv)
    if (args.h) {
-      // Вывести помощь
+      printHelp()
    }
-   if (args.s) {
+   if (args.c) {
       // Сохранить город
    }
    if (args.t) {
@@ -18,7 +18,6 @@ function initCli() {
    // Вывести погоду
 
    console.log(args)
-   printError('Ошибка')
 }
 
 initCli()
