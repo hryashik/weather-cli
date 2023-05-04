@@ -1,6 +1,6 @@
 import {getArgs} from "./helpers/args";
-import * as http from "http";
 import {config} from 'dotenv'
+import {printError} from "./services/log.service";
 
 config()
 
@@ -18,6 +18,7 @@ function initCli() {
    // Вывести погоду
 
    console.log(args)
+   printError('Ошибка')
 }
 
 initCli()
