@@ -1,6 +1,8 @@
 import { config } from 'dotenv'
 import { printError, printHelp } from "./services/log.service";
 import { getArgs } from "./helpers/args";
+import { saveToken } from "./services/commands.service";
+import * as process from "process";
 
 config()
 
@@ -13,11 +15,9 @@ function initCli() {
       // Сохранить город
    }
    if (args.t) {
-      // Сохранить токен
+      Promise.resolve(saveToken(args.t))
    }
    // Вывести погоду
-
-   console.log(args)
 }
 
 initCli()

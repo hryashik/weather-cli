@@ -15,6 +15,8 @@ export function getArgs(processArgs: string[]) {
       if (array.length > 1) {
          if (el === '-c' && array[idx + 1][0] !== '-') {
             res.c = array[idx + 1]
+         } else if (el === '-t' && array[idx + 1][0] !== '-') {
+            res.t = array[idx + 1]
          }
       }
 
