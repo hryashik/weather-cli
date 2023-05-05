@@ -1,5 +1,5 @@
 import { ClientParams, HttpClient } from "./httpClient.interface";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import * as process from "process";
 import { config } from "dotenv";
 
@@ -10,14 +10,21 @@ class AxiosClient implements HttpClient {
 
    constructor() {
       this.url = process.env.URL as string
-      console.log(this.url)
    }
 
    async get(params: ClientParams) {
-      const {data} = await axios.get(this.url, {
-         params
-      })
-      return data
+      try {
+         const {data} = await axios.get(this.url, {
+            params
+         })
+         return data
+      } catch (e) {
+         if (isAxiosError(e)) {
+            throw new Error(e.response?.data.error.message)
+         }
+      }
+
+
    }
 }
 

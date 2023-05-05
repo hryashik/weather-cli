@@ -31,8 +31,8 @@ async function printWeather() {
       printData(conversion(data))
    } catch (e) {
       if (e instanceof Error) {
-         if (e.message === 'no info') printError('Не установлен токен или город')
-         else printError('Произошла ошибка в получении погоды')
+         if (e.message === 'no info') printError('Не установлен токен или город \n -h для просмотра команд')
+         else printError(e.message)
       }
    }
 }

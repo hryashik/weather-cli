@@ -39,8 +39,8 @@ export function printData(data: PrintWeatherData) {
            `${bgBlueBright('  ПОГОДА  ')}
       Страна: ${data.country}
       Город: ${data.city}
-      Температура: ${data.temp}
-      Ощущается как: ${data.feelsLike}
+      Температура: ${data.temp} градусов
+      Ощущается как: ${data.feelsLike} градусов
       Погода: ${data.condition} ${data.icon}
       Ветер: ${data.wind} КМ/Ч
       `)
