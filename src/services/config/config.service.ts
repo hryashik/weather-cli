@@ -1,29 +1,37 @@
-import fs, { promises } from 'fs'
+import fs from 'fs'
 import { join } from 'path'
 import { homedir } from 'os'
 
 const filePath = join(homedir(), 'weather-app.config.json')
 
-type dataType = {
-   token: string
-   city: string
+interface ISettings {
+   token: string | undefined
+   city: string | undefined
 }
 
+// Singleton
 class ConfigService {
-   filePath: string
-   data: any | undefined = undefined
+   private readonly filePath: string = filePath
+   private settings: ISettings = {
+      token: undefined,
+      city: undefined
+   }
    private isExist: boolean = false
-
+   private static instance: ConfigService
    constructor() {
-      this.filePath = filePath
+      if (ConfigService.instance) {
+         return ConfigService.instance
+      }
+      console.log('Создается инстанс')
       this.start()
+      ConfigService.instance = this
    }
 
    // check for existing
-   // if config is exist -> reading data
+   // if config is existed -> reading data
    private readFile(): boolean {
       try {
-         this.data = JSON.parse(fs.readFileSync(this.filePath, {encoding: "utf-8"}))
+         this.settings = JSON.parse(fs.readFileSync(this.filePath, {encoding: "utf-8"})) as ISettings
          this.isExist = true
          return true
       } catch (e) {
@@ -39,7 +47,7 @@ class ConfigService {
             const data = {token: '', city: ''}
             fs.writeFileSync(filePath, JSON.stringify(data), {encoding: "utf-8"})
             this.isExist = true
-            this.data = data
+            this.settings = data
          }
       } catch (e: any) {
          throw new Error('Создать конфиг не удалось')
@@ -62,13 +70,17 @@ class ConfigService {
          throw new Error('Конфига не существует')
       }
       try {
-         const data = {...this.data}
+         const data = {...this.settings}
          data[key] = value
          fs.writeFileSync(filePath, JSON.stringify(data), {encoding: "utf-8"})
-         this.data = data
+         this.settings = data
       } catch (e) {
          throw new Error('Обновить конфиг не удалось')
       }
+   }
+
+   public getSettings() {
+      return this.settings
    }
 }
 
