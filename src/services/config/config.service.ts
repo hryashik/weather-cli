@@ -17,14 +17,13 @@ class ConfigService {
       city: undefined
    }
    private isExist: boolean = false
-   /*private static instance: ConfigService*/
+   private static instance: ConfigService
    constructor() {
-      /*if (ConfigService.instance) {
+      if (ConfigService.instance) {
          return ConfigService.instance
-      }*/
-      console.log('Создается инстанс')
+      }
       this.start()
-      /*ConfigService.instance = this*/
+      ConfigService.instance = this
    }
 
    // check for existing
