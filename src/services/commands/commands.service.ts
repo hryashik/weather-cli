@@ -1,6 +1,7 @@
 import configService from '../config/config.service'
-import { printError, printSuccess } from "../log/log.service";
+import { printData, printError, printSuccess } from "../log/log.service";
 import apiService from "../api/api.service";
+import { conversion } from "../../helpers/conversion";
 
 function saveToken(token: string) {
    try {
@@ -27,11 +28,11 @@ async function printWeather() {
          throw new Error('no info')
       }
       const data = await apiService.getWeather(token, city)
-      console.log(data)
+      printData(conversion(data))
    } catch (e) {
       if (e instanceof Error) {
          if (e.message === 'no info') printError('Не установлен токен или город')
-         else /*printError('Произошла ошибка в получении погоды')*/ console.log(e)
+         else printError('Произошла ошибка в получении погоды')
       }
    }
 }

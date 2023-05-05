@@ -1,4 +1,4 @@
-export type Data = {}
+import { ResponseEntity } from "../../entities/response.entity";
 
 export type ClientParams = {
    // token
@@ -9,5 +9,5 @@ export type ClientParams = {
 }
 
 export interface HttpClient {
-   get: (params: ClientParams) => Promise<Data>
+   get: (params: ClientParams) => Promise<ResponseEntity>
 }
